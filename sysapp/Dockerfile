@@ -1,5 +1,5 @@
 # Using Python 3.12.2 as the base image
-FROM python:3.12.2                              
+FROM python:3.12.2-slim-bullseye                              
 # Ensures that Python output is sent straight to the terminal (e.g., for logging)
 ENV PYTHONUNBUFFERED=1                          
 # variable for port 8080 

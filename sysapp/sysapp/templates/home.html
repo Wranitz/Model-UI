@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Home Page{% endblock title %}
+{% block extrahead %}
+    <style>
+        #btn {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+{% endblock extrahead %}
+
+{% block content %}
+    <h1>Welcome to Model UI</h1>
+    <p>Select your model</p>
+    <p>Click <a href="/contact">here</a> to go to the contact page.</p>
+    <button id="btn">Click me</button>
+    <p id="msg"></p>
+
+{% endblock content %}
+
+{% block extra_js %}
+    <script>
+        document.getElementById('btn').addEventListener('click', function () {
+            document.getElementById('msg').innerHTML = 'Button clicked';
+        });
+    </script>
+{% endblock extra_js %}
