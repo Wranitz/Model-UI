@@ -3,15 +3,7 @@
 
 {% block title %}Home Page{% endblock title %}
 {% block extrahead %}
-    <style>
-        #btn {
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">     
 {% endblock extrahead %}
 
 {% block content %}
@@ -29,7 +21,7 @@
             
             <!-- Row 2: Image -->
             <div class="row"> 
-                <img src=" {% static 'images/aihub.png' %} " alt="robot picture" class="input-image">
+                <img src=" {% static 'images/aihub.png' %} " alt="robot picture" class="image">
             </div>
             <!-- Row 3: Input Field and Buttons -->
             <div class="row"> 
