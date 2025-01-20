@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Home Page{% endblock title %}
 {% block extrahead %}
@@ -14,11 +15,40 @@
 {% endblock extrahead %}
 
 {% block content %}
-    <h1>Welcome to Model UI</h1>
-    <p>Select your model</p>
-    <p>Click <a href="/contact">here</a> to go to the contact page.</p>
-    <button id="btn">Click me</button>
-    <p id="msg"></p>
+<div class="container">
+    <div class="left-column"> 
+        <form action="/" method="POST" id="myForm" enctype="multipart/form-data" >
+            <!-- Row 1: Button with List -->
+            <div class="row"> <label for="selectList">Select an Option:</label> 
+                <select id="selectList" name="select_option">
+                    <option value="llama3.2:3b">General LLM</option>
+                    <option value="llama3.2-vision">Vison LLM</option>
+                    <option value="qwen2.5-coder:32b">Qwen 2.5</option>
+                </select> 
+            </div> 
+            
+            <!-- Row 2: Image -->
+            <div class="row"> 
+                <img src=" {% static 'images/aihub.png' %} " alt="robot picture" class="input-image">
+            </div>
+            <!-- Row 3: Input Field and Buttons -->
+            <div class="row"> 
+                <input type="text" id="textInput" name="text_input" placeholder="Enter text"> 
+                <input type="file" id="fileInput" name="file_input">
+                <button type = "submit" id="submitButton">Submit</button> 
+            </div>
+        </form>
+    </div>
+
+
+    <div class="right-column">
+        <div class="output">
+            <h2 style="color: antiquewhite;">Answer:</h2>
+            <p id="outputText" style="color: antiquewhite;" >Output Text Here</p> 
+            <img id="outputImage" src="" alt="Output Image" class="output-image">
+        </div>
+    </div>
+</div>
 
 {% endblock content %}
 
