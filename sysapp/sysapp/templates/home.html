@@ -37,7 +37,7 @@
         <div class="output">
             <h2 style="color: antiquewhite;">Answer:</h2>
             <p id="outputText" style="color: antiquewhite;" >Output Text Here</p> 
-            <img id="outputImage" src="" alt="Output Image" class="output-image">
+            <img id="outputImage" src=" {% static 'images/th.jpeg' %}" alt="Output Image" class="output-image">
         </div>
     </div>
 </div>
@@ -46,7 +46,7 @@
 
 {% block extra_js %}
     <script>
-        document.getElementById('btn').addEventListener('click', function () {
+        document.getElementById('submitButton').addEventListener('click', function () {
             document.getElementById('msg').innerHTML = 'Button clicked';
         });
     </script>

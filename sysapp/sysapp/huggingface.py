@@ -7,7 +7,7 @@
     6. Fifth is Image to Image model for Image enhancement.
     7. Sixth is Image to Image model for Image generation.
     8. Seventh is Image to Video model for Video generation.
-    9. Partition the defferent phases of code execution for running multiple models.
+    9. Partition the different phases of code execution for running multiple models.
 '''
 
 from transformers import AutoModelForCausalLM, AutoTokenizer

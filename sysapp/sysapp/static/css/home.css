@@ -7,13 +7,13 @@ body {
 
 .container {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     padding: 20px;
 }
 
 .left-column {
 
-    width:45%;
+    width:35%;
     padding: 20px;
     background-color: #bba0d6;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -21,7 +21,7 @@ body {
 }
 
 .right-column {
-    width: 45%;
+    width: 35%;
     padding: 20px;
     background-color: #31283a;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -37,8 +37,8 @@ body {
     padding: 10 px;
 }
 .row input{
-    width: 60%;
-    height: 60%;
+    width: 33%;
+    height: 33%;
 }
 .row button {
     width: 40%;
@@ -46,7 +46,7 @@ body {
 }
 
 .row .image {
-    width: 40%;
+    width: 45%;
     height: 40%;
     border: 1px solid #ddd;
     border-radius: 4px;
