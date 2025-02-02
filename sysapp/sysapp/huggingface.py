@@ -13,6 +13,12 @@
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 model_name = "Qwen/Qwen2.5-0.5B-Instruct"
+second_model = ""
+third_model = ""
+fourth_model = ""
+fifth_model = ""
+
+
 
 model = AutoModelForCausalLM.from_pretrained(
     model_name,

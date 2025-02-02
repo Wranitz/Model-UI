@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from my_django_project.settings import llm_1, llm_2
+#from my_django_project.settings import llm_1, llm_2
 
 def home(request):
     return render(request, 'home.html')
