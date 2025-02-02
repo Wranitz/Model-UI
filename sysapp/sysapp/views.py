@@ -1,21 +1,25 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-#from my_django_project.settings import llm_1, llm_2
+from sysapp.settings import llm_1
 
 def home(request):
-    return render(request, 'home.html')
+        prompt = "hello"
+        response = llm_1(prompt)[0]['generated_text']
+        print(response)
+        return render(request, 'home.html')
 
 def generate_text(request):
     if request.method == 'POST':
-        prompt = request.POST['prompt']
+        prompt = "hello"
         response = llm_1(prompt)[0]['generated_text']
+        print(response)
         return JsonResponse({'response': response})
     return JsonResponse({'response': 'Invalid request'})
 
 def classify_text(request):
     if request.method == 'POST':
         text = request.POST['text']
-        response = llm_2(text)
+        response = llm_1(text)
         return JsonResponse({'response': response})
     return JsonResponse({'response': 'Invalid request'})
 
