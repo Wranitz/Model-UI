@@ -17,8 +17,8 @@ from . import load_models
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 #load models
-llm_1 = load_models.get_llm_1()
-#llm_2 = load_models.get_llm_2()
+#llm_1 = load_models.get_llm_1()
+llm_2 = load_models.get_llm_2()
 
 
 # Quick-start development settings - unsuitable for production

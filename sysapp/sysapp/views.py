@@ -1,17 +1,17 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from sysapp.settings import llm_1
+from sysapp.settings import llm_1, llm_2
 
 def home(request):
-        prompt = "hello"
-        response = llm_1(prompt)[0]['generated_text']
+        prompt = "Write a quick sort algorithm in python"
+        response = llm_2(prompt)[0]['generated_text']
         print(response)
         return render(request, 'home.html')
 
 def generate_text(request):
     if request.method == 'POST':
         prompt = "hello"
-        response = llm_1(prompt)[0]['generated_text']
+        response = llm_2(prompt)[0]['generated_text']
         print(response)
         return JsonResponse({'response': response})
     return JsonResponse({'response': 'Invalid request'})
