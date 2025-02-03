@@ -9,7 +9,7 @@
 {% block content %}
 <div class="container">
     <div class="left-column"> 
-        <form action="/" method="POST" id="myForm" enctype="multipart/form-data" >
+        <form action="generateText()" method="POST" id="myForm" enctype="multipart/form-data" >
             {% csrf_token %}
             <!-- Row 1: Button with List -->
             <div class="row"> <label for="selectList">Select an Option:</label> 
@@ -47,8 +47,20 @@
 
 {% block extra_js %}
     <script>
-        document.getElementById('submitButton').addEventListener('click', function () {
-            document.getElementById('msg').innerHTML = 'Button clicked';
-        });
+       function generateText() {
+        const prompt = document.getElementById("textInput").value;
+        fetch('/generate/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({'prompt': prompt})
+        })
+        .then(response => response.json())
+        .then(data => {
+                document.getElementById("outputText").innerText = data.text;
+            });
+        }
     </script>
 {% endblock extra_js %}

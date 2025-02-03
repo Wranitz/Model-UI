@@ -1,16 +1,18 @@
+import json
 from django.shortcuts import render
 from django.http import JsonResponse
-from sysapp.settings import llm_1, llm_2
+from sysapp.settings import llm_2
 
 def home(request):
-        prompt = "Write a quick sort algorithm in python"
-        response = llm_2(prompt)[0]['generated_text']
-        print(response)
+        #prompt = "Write a quick sort algorithm in python"
+        #response = llm_2(prompt)[0]['generated_text']
+        #print(response)
         return render(request, 'home.html')
 
 def generate_text(request):
     if request.method == 'POST':
-        prompt = "hello"
+        data = json.loads(request.body)
+        prompt = data['prompt']
         response = llm_2(prompt)[0]['generated_text']
         print(response)
         return JsonResponse({'response': response})
@@ -19,7 +21,7 @@ def generate_text(request):
 def classify_text(request):
     if request.method == 'POST':
         text = request.POST['text']
-        response = llm_1(text)
+        response = llm_2(text)
         return JsonResponse({'response': response})
     return JsonResponse({'response': 'Invalid request'})
 
