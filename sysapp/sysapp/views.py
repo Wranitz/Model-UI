@@ -9,12 +9,11 @@ def home(request):
         #print(response)
         return render(request, 'home.html')
 
-def generate_text(request):
+def generate(request):
     if request.method == 'POST':
         data = json.loads(request.body)
         prompt = data['prompt']
         response = llm_2(prompt)[0]['generated_text']
-        print(response)
         return JsonResponse({'response': response})
     return JsonResponse({'response': 'Invalid request'})
 
