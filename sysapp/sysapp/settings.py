@@ -11,14 +11,10 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
-from . import load_models
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-#load models
-#llm_1 = load_models.get_llm_1()
-llm_2 = load_models.get_llm_2()
 
 
 # Quick-start development settings - unsuitable for production

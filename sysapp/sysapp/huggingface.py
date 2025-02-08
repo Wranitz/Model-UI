@@ -12,8 +12,8 @@
 
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
-model_name = "Qwen/Qwen2.5-0.5B-Instruct"
-second_model = ""
+first_model = "Qwen/Qwen2.5-0.5B-Instruct"
+model_name = "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B"
 third_model = ""
 fourth_model = ""
 fifth_model = ""

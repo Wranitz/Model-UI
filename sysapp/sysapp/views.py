@@ -1,26 +1,32 @@
 import json
 from django.shortcuts import render
 from django.http import JsonResponse
-from sysapp.settings import llm_2
+from django.views.decorators.csrf import csrf_exempt
+from transformers import pipeline
+from .pipeline import general
+
 
 def home(request):
-        #prompt = "Write a quick sort algorithm in python"
-        #response = llm_2(prompt)[0]['generated_text']
-        #print(response)
         return render(request, 'home.html')
+
 
 def generate(request):
     if request.method == 'POST':
         data = json.loads(request.body)
         prompt = data['prompt']
-        response = llm_2(prompt)[0]['generated_text']
-        return JsonResponse({'response': response})
+        model = data['model']
+        message = [
+             {"role": "user", "content": prompt}
+        ]
+        response = general(message)
+        textOutput = response[0]['generated_text'][1]['content']
+        return JsonResponse({'response': textOutput})
     return JsonResponse({'response': 'Invalid request'})
 
 def classify_text(request):
     if request.method == 'POST':
         text = request.POST['text']
-        response = llm_2(text)
+        response = "This is a text classification response"
         return JsonResponse({'response': response})
     return JsonResponse({'response': 'Invalid request'})
 
