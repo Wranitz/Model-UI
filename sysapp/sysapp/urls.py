@@ -24,5 +24,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
     path('home/', views.home, name='home'),
-    path('generate/', views.generate, name='generate_text')
+    path('generate/', views.generate, name='generate_text'),
+    path('image_from_text/', views.image_from_text, name='generate_image_from_text')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

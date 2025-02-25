@@ -9,13 +9,13 @@
 {% block content %}
 <div class="container">
     <div class="left-column"> 
-        <form onsubmit='return generateText()' method="POST" id="myForm" enctype="multipart/form-data" >
+        <form onsubmit='return generate_content()' method="POST" id="myForm" enctype="multipart/form-data" >
             {% csrf_token %}
             <!-- Row 1: Button with List -->
             <div class="row"> <label for="selectList">Select an Option:</label> 
                 <select id="selectList" name="select_option">
                     <option value="deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5Bge">General LLM</option>
-                    <option value="DeepSeek-R1-Distill-Llama-8B">Vison LLM</option>
+                    <option value="stabilityai/stable-diffusion-2-1">Vison LLM</option>
                     <option value="qwen2.5-coder:32b">Qwen 2.5</option>
                 </select> 
             </div> 
@@ -47,29 +47,56 @@
 
 {% block extra_js %}
     <script>
-       function generateText() {
+       function generate_content() {
         const prompt = document.getElementById("textInput").value;
         const model = document.getElementById("selectList").value;
-        fetch('/generate/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': '{{ csrf_token }}'
-            },
-            body: JSON.stringify({'prompt': prompt , 'model': model})
-        })
-        .then(response => {
+        const file = document.getElementById("fileInput").files[0];
+        if (model == 'stabilityai/stable-diffusion-2-1'){
+            fetch('/image_from_text', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({'prompt': prompt , 'model': model})
+            })
+            .then(response => {
             if (!response.ok) {
                 return response.json().then(errorData => {
                     throw new Error(errorData.error || 'Something went wrong!');
                 });
             }
             return response.json();
-        })
-        .then(response => {
-                console.log(response);
-                document.getElementById("outputText").innerText = response.response;
+            })
+            .then(response => {
+                    console.log(response);
+                    document.getElementById("outputText").innerText = response.response;
+                    document.getElementById("outputImage").src = response.image;
+                });
+            } else {
+            fetch('/generate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({'prompt': prompt , 'model': model})
+            })
+            .then(response => {
+            if (!response.ok) {
+                return response.json().then(errorData => {
+                    throw new Error(errorData.error || 'Something went wrong!');
+                });
+            }
+            return response.json();
+            })
+            .then(response => {
+                    console.log(response);
+                    document.getElementById("outputText").innerText = response.response;
+                    document.getElementById("outputImage").src = response.image;
             });
+        } 
+        
 
         return false;
         }

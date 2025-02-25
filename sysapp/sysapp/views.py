@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from transformers import pipeline
-from .pipeline import general
+from .pipeline import imagegen
 
 
 def home(request):
@@ -18,8 +18,9 @@ def generate(request):
         message = [
              {"role": "user", "content": prompt}
         ]
-        response = general(message)
-        textOutput = response[0]['generated_text'][1]['content']
+        #response = general(message)
+        #textOutput = response[0]['generated_text'][1]['content']
+        textOutput = "Hello world"
         return JsonResponse({'response': textOutput})
     return JsonResponse({'response': 'Invalid request'})
 
@@ -33,7 +34,13 @@ def classify_text(request):
 def generate_text_from_image(request):
     return JsonResponse({'response': 'Not implemented yet'})
 
-def generate_image_from_text(request):
+def image_from_text(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        prompt = data['prompt']
+        print (prompt)
+        response = "This is an image generation response"
+        return JsonResponse({'response': response})
     return JsonResponse({'response': 'Not implemented yet'})
 
 def generate_image_from_image(request):
