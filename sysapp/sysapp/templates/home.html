@@ -52,7 +52,7 @@
         const model = document.getElementById("selectList").value;
         const file = document.getElementById("fileInput").files[0];
         if (model == 'stabilityai/stable-diffusion-2-1'){
-            fetch('/image_from_text', {
+            fetch('/text-from-image/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -74,7 +74,7 @@
                     document.getElementById("outputImage").src = response.image;
                 });
             } else {
-            fetch('/generate', {
+            fetch('/generate/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
