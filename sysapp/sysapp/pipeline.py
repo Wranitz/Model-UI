@@ -1,10 +1,10 @@
 import torch
 from transformers import pipeline
-from diffusers import StableDiffusionPipeline, DPMSolverMultistepScheduler
+##from diffusers import StableDiffusionPipeline, DPMSolverMultistepScheduler
 
 ## Initialize the general model once
-general_model = "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B"
-general = pipeline("text-generation", model=general_model, max_length=1000, num_return_sequences=1)
+##general_model = "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B"
+##general = pipeline("text-generation", model=general_model, max_length=400, num_return_sequences=1)
 
 
 ## Initialige the image generation model

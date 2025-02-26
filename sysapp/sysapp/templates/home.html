@@ -27,7 +27,7 @@
             <!-- Row 3: Input Field and Buttons -->
             <div class="row"> 
                 <input type="text" id="textInput" name="prompt" placeholder="Enter text" label = "Enter Text"> 
-                <input type="file" id="fileInput" name="file_input">
+                <input type="file" id="imageInput" name="image_input">
                 <button type = "submit" id="submitButton">Submit</button> 
             </div>
         </form>
@@ -50,15 +50,25 @@
        function generate_content() {
         const prompt = document.getElementById("textInput").value;
         const model = document.getElementById("selectList").value;
-        const file = document.getElementById("fileInput").files[0];
+        const image = document.getElementById("imageInput").files[0];
+        console.log(image)
         if (model == 'stabilityai/stable-diffusion-2-1'){
-            fetch('/text-from-image/', {
+            if (!image){
+                alert("Please select an image.");
+                return; //stop the function if no image is selected
+            }
+            const formData = new FormData();
+
+            formData.append('prompt', prompt);
+            formData.append('model', model);
+            formData.append('image', image);
+            
+            fetch('/textFromimage/', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
                     'X-CSRFToken': '{{ csrf_token }}'
                 },
-                body: JSON.stringify({'prompt': prompt , 'model': model})
+                body: formData
             })
             .then(response => {
             if (!response.ok) {
@@ -73,7 +83,9 @@
                     document.getElementById("outputText").innerText = response.response;
                     document.getElementById("outputImage").src = response.image;
                 });
-            } else {
+            } 
+        else
+            {
             fetch('/generate/', {
                 method: 'POST',
                 headers: {
