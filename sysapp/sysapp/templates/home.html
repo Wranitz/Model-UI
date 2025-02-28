@@ -51,7 +51,6 @@
         const prompt = document.getElementById("textInput").value;
         const model = document.getElementById("selectList").value;
         const image = document.getElementById("imageInput").files[0];
-        console.log(image)
         if (model == 'stabilityai/stable-diffusion-2-1'){
             if (!image){
                 alert("Please select an image.");

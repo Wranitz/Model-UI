@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from transformers import pipeline
-from .pipeline import textgen
+from .pipeline import general
 
 
 
@@ -20,9 +20,9 @@ def generate(request):
         message = [
              {"role": "user", "content": prompt}
         ]
-        #response = general(message)
-        #textOutput = response[0]['generated_text'][1]['content']
-        textOutput = "Hello world"
+        response = general(message)
+        textOutput = response[0]['generated_text'][1]['content']
+        #textOutput = "Hello world"
         return JsonResponse({'response': textOutput})
     return JsonResponse({'response': 'Invalid request'})
 
@@ -38,9 +38,9 @@ def text_from_image(request):
         prompt = request.POST.get('prompt')
         model = request.POST.get('model')
         image_file = request.FILES.get('image')
-        print(prompt)
-        print(model)
-        print(image_file)
+        #print(prompt)
+        #print(model)
+        #print(image_file)
 
         if(image_file):
             try:
@@ -66,7 +66,7 @@ def text_from_image(request):
                         }
                     ]
                 response = textgen(text=message, max_new_tokens=20)
-                print (response)
+                #print (response)
                 textOutput = response[0]['generated_text'][1]['content']
                 #textOutput = "hello from textfromimage"
                 #print(textOutput)
