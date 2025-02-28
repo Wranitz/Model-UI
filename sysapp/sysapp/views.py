@@ -1,9 +1,11 @@
-import json, base64
+import json, base64, io
+from PIL import Image
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from transformers import pipeline
 from .pipeline import textgen
+
 
 
 def home(request):
@@ -48,8 +50,14 @@ def text_from_image(request):
                 base64_encoded_bytes = base64.b64encode(image_file_content)
                 #decode base64 to string
                 base64_string = base64_encoded_bytes.decode('utf-8')
+                #decode back to image data
+                image_data = base64.b64decode(base64_string)
+                #open image using PIL
+                image_pil = Image.open(io.BytesIO(image_file_content))
+                image_pil = image_pil.convert("RGB")
+                print(f"type of image_pil: {type(image_pil)}")
                 message = [
-                        {"role": "user", "text": "Who are you?", "images": base64_string},
+                        {"role": "user", "text": prompt, "images": "https://qianwen-res.oss-cn-beijing.aliyuncs.com/Qwen-VL/assets/demo.jpeg"},
                     ]
                 response = textgen(message)
                 print (response)
