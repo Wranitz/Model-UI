@@ -16,7 +16,7 @@ from transformers import pipeline
 
 
 ## Initialize the image from text model
-text_from_image = "unsloth/Qwen2.5-VL-7B-Instruct-unsloth-bnb-4bit" 
+text_from_image = "llava-hf/llava-onevision-qwen2-0.5b-ov-hf" 
 textgen = pipeline("image-text-to-text", model=text_from_image)
 
 

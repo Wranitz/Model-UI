@@ -51,19 +51,25 @@ def text_from_image(request):
                 #decode base64 to string
                 base64_string = base64_encoded_bytes.decode('utf-8')
                 #decode back to image data
-                image_data = base64.b64decode(base64_string)
+                #image_data = base64.b64decode(base64_string)
                 #open image using PIL
-                image_pil = Image.open(io.BytesIO(image_file_content))
-                image_pil = image_pil.convert("RGB")
-                print(f"type of image_pil: {type(image_pil)}")
+                #image_pil = Image.open(io.BytesIO(image_data))
+                #image_pil = image_pil.convert("RGB")
+                #print(f"type of image_pil: {type(image_pil)}")
                 message = [
-                        {"role": "user", "text": prompt, "images": "https://qianwen-res.oss-cn-beijing.aliyuncs.com/Qwen-VL/assets/demo.jpeg"},
+                        {
+                            "role": "user", 
+                            "content": [
+                                {"type": "image", "image": base64_string},
+                                {"type": "text", "text": prompt}
+                            ]
+                        }
                     ]
-                response = textgen(message)
+                response = textgen(text=message, max_new_tokens=20)
                 print (response)
                 textOutput = response[0]['generated_text'][1]['content']
                 #textOutput = "hello from textfromimage"
-                print(textOutput)
+                #print(textOutput)
                 return JsonResponse({'response': textOutput})
             except Exception as e:
                 print(f"Error processing image file: {e}")
