@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from transformers import pipeline
-from .pipeline import general
+from .pipeline import imagegen, general, textgen
 
 
 
@@ -24,13 +24,6 @@ def generate(request):
         textOutput = response[0]['generated_text'][1]['content']
         #textOutput = "Hello world"
         return JsonResponse({'response': textOutput})
-    return JsonResponse({'response': 'Invalid request'})
-
-def classify_text(request):
-    if request.method == 'POST':
-        text = request.POST['text']
-        response = "This is a text classification response"
-        return JsonResponse({'response': response})
     return JsonResponse({'response': 'Invalid request'})
 
 def text_from_image(request):
@@ -81,10 +74,16 @@ def image_from_text(request):
     if request.method == 'POST':
         data = json.loads(request.body)
         prompt = data['prompt']
-        #image = imagegen(prompt).images[0]
-        #image.save(" /image.png")
+        #print(prompt)
+        image = imagegen(prompt).images[0]
+        #print(f"image type: {type(image)}")
+        #print(f"image size: {image.size}")
+        image.show()
+        image_bytes = io.BytesIO()
+        image.save(image_bytes, format='PNG')
+        image_str = base64.b64encode(image_bytes.getvalue()).decode('utf-8')
         response = "This is an image generation response"
-        return JsonResponse({'response': response})
+        return JsonResponse({'response': response, 'image': image_str})
     return JsonResponse({'response': 'Not implemented yet'})
 
 def generate_image_from_image(request):
