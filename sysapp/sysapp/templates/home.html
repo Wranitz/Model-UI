@@ -81,7 +81,7 @@
                     console.log(response);
                     document.getElementById("outputText").innerText = response.response;
                     if(response.image)
-                        document.getElementById("outputImage").src = response.image;
+                        document.getElementById("outputImage").src = 'data:image/png;base64,' + response.image;
                 });
             } 
         else if (model == "general")
@@ -106,7 +106,7 @@
                     console.log(response);
                     document.getElementById("outputText").innerText = response.response;
                     if(response.image)
-                        document.getElementById("outputImage").src = 'data:image/png;base64,' + response.image;
+                        document.getElementById("outputImage").src = " {% static 'images/th.jpeg' %}";
             });
         } 
         else if (model == "text-image")

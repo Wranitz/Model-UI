@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from transformers import pipeline
-from .pipeline import imagegen
+from .pipeline import general
 
 
 
@@ -49,7 +49,7 @@ def text_from_image(request):
                     ]
                 response = textgen(text=message, max_new_tokens=20)
                 textOutput = response[0]['generated_text'][1]['content']
-                return JsonResponse({'response': textOutput})
+                return JsonResponse({'response': textOutput, 'image': base64_string})
             except Exception as e:
                 print(f"Error processing image file: {e}")
                 return JsonResponse({'response': f'Error converting image to base64:{e}'}, status=500)
